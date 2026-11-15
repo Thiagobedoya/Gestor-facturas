@@ -29,6 +29,9 @@
                 {% if factura.estado == 'Pendiente' %}
                 <a class="boton-secundario" href="/facturas/{{factura.id}}/pagar">Pagar
                 </a>
+                <form method="POST" action="/facturas/{{ factura.id }}/eliminar" style="display:inline;" onsubmit="return confirm('¿Estás seguro que deseas eliminar esta factura?');">
+                    <button class="peligro" type="submit">Eliminar</button>
+                </form>
                 {% else %}
                 Pagada
                 <form method="POST" action="/facturas/{{ factura.id }}/revertir" style="display:inline" onsubmit="return confirm('¿Deseas revertir el pago de esta factura?');">

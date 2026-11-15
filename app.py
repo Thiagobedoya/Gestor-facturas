@@ -177,6 +177,22 @@ def revertir_factura(id):
     db.session.commit()
     flash("Factura paga revertida", "exito")
     return redirect("/facturas")
+
+@app.route("/facturas/<int:id>/eliminar", methods=["POST"]) #Esta ruta permite eliminar una factura existente
+def eliminar_factura(id):
+    factura = Factura.query.get_or_404(id) #Esta línea obtiene la factura con el ID proporcionado de la base de datos. Si no se encuentra, devuelve un error 404.
+    
+    if factura.estado == "Pagada": #Esta línea verifica si la factura está marcada como pagada. Si es así, no se permite eliminarla y se muestra un mensaje de error.
+        flash("No se puede eliminar una factura pagada", "error")
+        return redirect("/facturas")
+    
+    for item in factura.items: #Esta línea itera sobre los elementos (items) asociados a la factura y los elimina de la base de datos. Esto asegura que todos los elementos relacionados con la factura se eliminen antes de eliminar la factura en sí.
+        db.session.delete(item)
+    
+    db.session.delete(factura)
+    db.session.commit()
+    flash("Factura eliminada exitosamente", "exito") #Esta linea muestra un mensaje rápido indicando que se elimino la factura
+    return redirect("/facturas") #Esta línea redirige al usuario a la página de
     
 if __name__ == "__main__": #Esta línea verifica si el archivo se está ejecutando directamente (no importado como módulo). Si es así, se ejecuta el bloque de código dentro de esta condición.
     with app.app_context():
