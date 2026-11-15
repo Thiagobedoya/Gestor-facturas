@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar cliente{% endblock %}
+
+{% block contenido %}
+    <h1>Editar cliente</h1>
+    <form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ cliente.nombre }}" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ cliente.email }}"><br><br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" value="{{ cliente.telefono }}"><br><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" value="{{ cliente.direccion }}"><br><br>
+
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" name="ciudad" value="{{ cliente.ciudad }}"><br><br>
+
+        <label for="pais">País:</label>
+        <input type="text" id="pais" name="pais" value="{{ cliente.pais }}"><br><br>
+
+        <button type="submit">Guardar cambios</button>
+    </form>
+{% endblock %}

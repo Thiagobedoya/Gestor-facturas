@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}Lista de Clientes{% endblock %}
+
+{% block contenido %}
+    <h1>Clientes registrados</h1>
+
+    <a class="boton-principal" href="/clientes/nuevo">Registrar nuevo cliente</a>
+
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Ciudad</th>
+            <th>Acciones</th>
+        </tr>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.ciudad }}</td>
+            <td>
+                <a class="boton-secundario" href="/clientes/{{cliente.id}}/editar">Editar</a>
+                <form method="POST" action="/clientes/{{ cliente.id }}/eliminar" style="display:inline;" onsubmit="return confirm('¿Estás seguro que deseas eliminar este cliente?');">
+                    <button class="peligro" type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

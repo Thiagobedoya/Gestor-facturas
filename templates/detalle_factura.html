@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block titulo %}Detalle de factura{% endblock %}
+
+{% block contenido %}
+    <h1>Factura N° {{ factura.numero }}</h1>
+
+    <p><strong>Fecha:</strong> {{ factura.fecha }}</p>
+    <p><strong>Estado:</strong> {{ factura.estado }}</p>
+
+    <h3>Cliente</h3>
+    <p>{{ factura.cliente.nombre }}</p> 
+    <p>{{ factura.cliente.email }}</p>
+    <p>{{ factura.cliente.direccion }}, {{ factura.cliente.ciudad }}, {{ factura.cliente.pais }}</p>
+
+    <h3>Ítems</h3>
+    <table>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Valor unitario</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for item in factura.items %}
+        <tr>
+            <td>{{ item.producto }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ "{:,.0f}".format (item.valor_unitario).replace(",",".") }}</td>
+            <td>${{ "{:,.0f}".format (item.subtotal).replace(",",".")  }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Total: ${{ "{:,.0f}".format(factura.total) .replace(",",".") }}</h2>
+
+    <a href="/facturas">Volver a la lista</a>
+    <a href="/facturas/{{ factura.id }}/pdf" target="_blank">Descargar PDF</a>
+{% endblock %}

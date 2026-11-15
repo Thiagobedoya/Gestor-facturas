@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}Nueva factura{% endblock %}
+
+{% block contenido %}
+    <h1>Crear nueva factura</h1>
+    <form method="POST">
+        <label for="cliente_id">Cliente:</label>
+        <select id="cliente_id" name="cliente_id" required>
+            {% for cliente in clientes %}
+            <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <h3>Ítems</h3>
+        <table border="1">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Valor unitario</th>
+            </tr>
+            {% for i in range(3) %}
+            <tr>
+                <td><input type="text" name="producto"></td>
+                <td><input type="number" name="cantidad" min="1"></td>
+                <td><input type="number" name="valor_unitario" step="0.01"></td>
+            </tr>
+            {% endfor %}
+        </table><br>
+
+        <button type="submit">Guardar factura</button>
+    </form>
+{% endblock %}
